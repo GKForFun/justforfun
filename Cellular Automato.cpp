@@ -20,7 +20,7 @@ private:
 	static int n;
 	char **environment;
 };
-int Cell::n=20;
+int Cell::n=50;
 void Cell::InitEnvir()
 {
 	int i=0,j=0;
@@ -46,37 +46,29 @@ bool Cell::Judge(int x,int y)
 	int right=x+3<n?x+3:n-1;
 	int up=y-3>0?y-3:0;
 	int down=y+3<n?y+3:n-1;
-	for(i=up,a=2;i<down;i++)
+	for(i=up;i<down;i++)
 	{	
-		for(j=left+a;j<right-a;j++)
+		for(j=left;j<right;j++)
 		{
 			if(environment[i][j]!=' ')
 			{
 				lifenum++;
 			}
 		}
-		if(a>0)
-		{
-			a--;
-		}
-		else
-		{
-			a++;
-		}
 	}
-	if(environment[x][y]==' '&&lifenum>=3)				//·±Ö³
+	if(environment[x][y]==' '&&lifenum>=3&&lifenum<=5)				//ç¹æ®–
 	{
 		environment[x][y]='3';
 	}
-	else if(environment[x][y]!=' '&&lifenum<2)			//ÈË¿Ú¹ý¶ÈÏ¡ÉÙ
+	else if(environment[x][y]!=' '&&lifenum<2)			//äººå£è¿‡åº¦ç¨€å°‘
 	{
 		environment[x][y]--;
 	}
-	else if (environment[x][y]!=' '&&lifenum>3)			//¹ý¶ÈÓµ¼·
+	else if (environment[x][y]!=' '&&lifenum>3)			//è¿‡åº¦æ‹¥æŒ¤
 	{
 		environment[x][y]--;
 	}
-	else if(environment[x][y]!=' '&&(lifenum==2||lifenum==3))		//ÊÊÒË»·¾³
+	else if(environment[x][y]!=' '&&(lifenum==2||lifenum==3))		//é€‚å®œçŽ¯å¢ƒ
 	{
 		environment[x][y]++;
 	}
@@ -105,7 +97,7 @@ void Cell::simulation(int InitLifeNum)
 	{
 		cout<<"Cellular Automaton"<<endl;
 		add=rand()%20;
-		if(add>2&&add<15)
+		if(add>3&&add<10)
 		{
 			for(i=0;i<InitLifeNum;i++)
 			{
@@ -114,7 +106,7 @@ void Cell::simulation(int InitLifeNum)
 				PutSeed(x,y);
 			}
 		}
-		for(i=0;i<n;i++)		//±éÀú»·¾³½øÐÐÅÐ¾ö
+		for(i=0;i<n;i++)		//éåŽ†çŽ¯å¢ƒè¿›è¡Œåˆ¤å†³
 		{
 			for(j=0;j<n;j++)
 			{
@@ -125,7 +117,7 @@ void Cell::simulation(int InitLifeNum)
 			}
 			cout<<endl;
 		}
-		cout<<"life num£º "<<lifenum;
+		cout<<"life numï¼š "<<lifenum;
 		if(lifenum==400)
 		{
 			break;
